@@ -24,7 +24,7 @@ export class LoginPageComponent implements OnInit {
     this.router.navigateByUrl('/signup');
   }
   onSubmit() {
-    var isPresent = false;
+    var isPresent = true;
     // this.arr =
     //   localStorage.getItem('users') === null
     //     ? []
@@ -47,6 +47,8 @@ export class LoginPageComponent implements OnInit {
     // }
     if (!isPresent) {
       alert('User Not Found --- Please Signup before login!');
+    } else {
+      this.router.navigateByUrl('/profile');
     }
     this.loginForm.reset();
     // console.log(this.arr);
