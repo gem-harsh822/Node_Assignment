@@ -9,6 +9,7 @@ import { CustomvalidationService } from '../custom-validations.service';
 })
 export class SignupPageComponent implements OnInit {
   signupForm!: any;
+  submitted: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -18,8 +19,13 @@ export class SignupPageComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group(
       {
-        name: ['', Validators.required, Validators.minLength(5)],
-        email: ['', Validators.required],
+        name: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        username: [
+          '',
+          [Validators.required],
+          this.customValidator.userNameValidator.bind(this.customValidator),
+        ],
         password: [
           '',
           Validators.compose([
@@ -27,7 +33,7 @@ export class SignupPageComponent implements OnInit {
             this.customValidator.patternValidator(),
           ]),
         ],
-        confirmPassword: ['', Validators.required, Validators.minLength(6)],
+        confirmPassword: ['', [Validators.required]],
       },
       {
         validator: this.customValidator.MatchPassword(
