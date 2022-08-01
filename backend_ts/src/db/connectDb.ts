@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const connectDb = async (DATABASE_URL) => {
+const connectDb = async (DATABASE_URL: any) => {
   try {
     const DB_OPTIONS = {
       dbName: "users",

@@ -1,9 +1,9 @@
-import UserModel from "../models/user";
-import bcrypt from "bcrypt";
-import { Jwt } from "jsonwebtoken";
+import UserModel from "../models/User";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 class UserController {
-  static userRegistration = async (req, res) => {
+  static userRegistration = async (req: any, res: any) => {
     const { name, email, username, password, confirm_password } = req.body;
     const user = await UserModel.findOne({ email: email });
     if (user) {
@@ -13,11 +13,12 @@ class UserController {
         if (password === confirm_password) {
           try {
             const salt = await bcrypt.genSalt(10);
+            const hashPassword = await bcrypt.hash(password, salt);
             const newUser = new UserModel({
               name: name,
               email: email,
               username: username,
-              password: password,
+              password: hashPassword,
             });
             await newUser.save();
           } catch (error) {
@@ -32,3 +33,5 @@ class UserController {
     }
   };
 }
+
+export default UserController;

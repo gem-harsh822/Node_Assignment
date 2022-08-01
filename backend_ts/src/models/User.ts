@@ -1,4 +1,4 @@
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose from "mongoose";
 
 // Schema
 const userSchema = new mongoose.Schema({
