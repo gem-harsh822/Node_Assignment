@@ -11,13 +11,18 @@ class UserController {
     } else {
       if (name && email && username && password && confirm_password) {
         if (password === confirm_password) {
-          const newUser = new UserModel({
-            name: name,
-            email: email,
-            username: username,
-            password: password,
-          });
-          await newUser.save();
+          try {
+            const salt = await bcrypt.genSalt(10);
+            const newUser = new UserModel({
+              name: name,
+              email: email,
+              username: username,
+              password: password,
+            });
+            await newUser.save();
+          } catch (error) {
+            res.send({ status: "failed", message: "Unable to register" });
+          }
         } else {
           res.send({ status: "failed", message: "Password doesn't match" });
         }
