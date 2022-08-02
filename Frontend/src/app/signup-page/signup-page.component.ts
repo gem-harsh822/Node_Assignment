@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { CustomvalidationService } from '../custom-validations.service';
 import { HttpClient } from '@angular/common/http';
 import { switchAll } from 'rxjs';
@@ -27,7 +28,6 @@ export class SignupPageComponent implements OnInit {
         username: [
           '',
           [Validators.required],
-          this.customValidator.userNameValidator.bind(this.customValidator),
         ],
         password: [
           '',
@@ -73,7 +73,11 @@ export class SignupPageComponent implements OnInit {
           console.log('res--->', res);
           // console.log(req.data);
           if (res) {
-            alert('Thanks for signing up Redirecting to login page.');
+            // alert('Thanks for signing up Redirecting to login page.');
+            Swal.fire({
+              icon:"success",
+              title:"Thanks for signing up Redirecting to login page."
+            })
             this.router.navigateByUrl('/login');
           }
         });

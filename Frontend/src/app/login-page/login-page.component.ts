@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomvalidationService } from '../custom-validations.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -33,9 +35,6 @@ export class LoginPageComponent implements OnInit {
   get loginFormControl() {
     return this.loginForm.controls;
   }
-  redirectToSignup() {
-    this.router.navigateByUrl('/signup');
-  }
   onSubmit() {
     console.log(this.loginForm);
 
@@ -57,20 +56,19 @@ export class LoginPageComponent implements OnInit {
           console.log('status', res.status);
 
           if (res.status === 'success') {
-            alert('Thanks for loging in.');
-            this.router.navigateByUrl('/profile');
+            // alert('Thanks for loging in.');
+            Swal.fire({
+              icon:"success",
+              title:"Thanks for loging in."
+            })
+            console.log(data.email);
+            
+            this.router.navigate(['profile',{email: data.email}])
+            // this.router.navigateByUrl('/profile');
           } else {
             alert(res.message);
           }
         });
     }
-    // var isPresent = true;
-    // if (!isPresent) {
-    //   alert('User Not Found --- Please Signup before login!');
-    // } else {
-    //   this.router.navigateByUrl('/profile');
-    // }
-    // this.loginForm.reset();
-    // console.log(this.arr);
   }
 }

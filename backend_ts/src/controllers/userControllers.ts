@@ -99,6 +99,22 @@ class UserController {
       console.log(error);
     }
   };
+  static getUserProfile =async (req:any,res:any) => {
+    try {
+      const email = req.params.email;
+      const user = await UserModel.findOne({ email: email });
+      if(user != null) {
+        res.status(200).send({status:"success",message:"user profile",details:user});
+      }
+      else {
+        res.send({ status: "failed", message: "Error in fetching user profile" });
+      }
+    } catch (error) {
+      res.send({ status: "failed", message: "Unable to fetch" });
+      console.log(error);
+    }
+  };
 }
+
 
 export default UserController;
