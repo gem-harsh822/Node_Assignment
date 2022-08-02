@@ -8,29 +8,29 @@
         <div class="card-body">
           <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
-              <label>User Name</label>
+              <label>Email</label>
               <input
-                type="text"
+                type="email"
                 class="form-control"
-                formControlName="username"
+                formControlName="email"
               />
               <span
                 class="text-danger"
                 *ngIf="
-                  (loginFormControl.username.touched || submitted) &&
-                  loginFormControl.username.errors?.required
+                  (loginFormControl.email.touched || submitted) &&
+                  loginFormControl.email.errors?.required
                 "
               >
-                User Name is required
+                Email is required
               </span>
               <span
                 class="text-danger"
                 *ngIf="
-                  loginFormControl.username.touched &&
-                  loginFormControl.username.errors?.userNameNotAvailable
+                  loginFormControl.email.touched &&
+                  loginFormControl.email.errors?.userNameNotAvailable
                 "
               >
-                User Name is not available
+                Email is not available
               </span>
             </div>
             <div class="form-group">
