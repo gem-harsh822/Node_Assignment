@@ -1,7 +1,10 @@
 import UserModel from "../models/User";
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const sgMail = require("@sendgrid/mail");
+const dotenv = require("dotenv");
 
+dotenv.config({ path: "./config/.env" });
 class UserController {
   static userRegistration = async (req: any, res: any) => {
     const { name, email, username, password, confirmpassword } = req.body;
@@ -30,7 +33,19 @@ class UserController {
               process.env.JWT_SECRET_KEY,
               { expiresIn: "30d" }
             );
-
+            const API_KEY = process.env.API_KEY;
+            sgMail.setApiKey(API_KEY);
+            const message = {
+              to: newUser.email,
+              from: "hp996847@gmail.com",
+              subject: "Registration successfully",
+              text: "You have registered successfully",
+              html: "<h1>You have registered successfully</h1>",
+            };
+            sgMail
+              .send(message)
+              .then((response: any) => console.log("Email Sent"))
+              .catch((error: any) => console.log(error));
             res.status(201).send({
               status: "Success",
               message: "User Registered Successfully",
@@ -62,7 +77,7 @@ class UserController {
               process.env.JWT_SECRET_KEY,
               { expiresIn: "30d" }
             );
-            res.send({
+            res.status(201).send({
               status: "success",
               message: "Login Success",
               token: token,
