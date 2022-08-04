@@ -114,7 +114,39 @@ class UserController {
       console.log(error);
     }
   };
+  static updateUserProfile =async (req:any,res:any) => {
+    try {
+      const email = req.params.email;
+      const user = await UserModel.findOne({ email: email });
+      if(user != null) {
+        res.status(200).send({status:"success",message:"user profile",details:user});
+      }
+      else {
+        res.send({ status: "failed", message: "Error in fetching user profile" });
+      }
+    } catch (error) {
+      res.send({ status: "failed", message: "Unable to fetch" });
+      console.log(error);
+    }
+  };
+  static deleteUserProfile =async (req:any,res:any) => {
+    try {
+      const email = req.params.email;
+      const user = await UserModel.findOne({ email: email });
+      const result = await UserModel.deleteOne({ email: email });
+      if(result.deletedCount === 1) {
+        res.status(200).send({status:"success",message:"User deleted Successfully",details:user});
+      }
+      else {
+        res.status(400).send({ status: "failed", message: "Error in deleting user profile" });
+      }
+    } catch (error) {
+      res.status(400).send({ status: "failed", message: "Unable to delete" });
+      console.log(error);
+    }
+  };
 }
+
 
 
 export default UserController;
