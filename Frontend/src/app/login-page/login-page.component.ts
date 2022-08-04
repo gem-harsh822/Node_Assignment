@@ -5,6 +5,7 @@ import { CustomvalidationService } from '../custom-validations.service';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -66,7 +67,10 @@ export class LoginPageComponent implements OnInit {
             this.router.navigate(['profile',{email: data.email}])
             // this.router.navigateByUrl('/profile');
           } else {
-            alert(res.message);
+            Swal.fire({
+              icon:"error",
+              title: res.message
+            })
           }
         });
     }

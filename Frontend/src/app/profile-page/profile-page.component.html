@@ -3,11 +3,34 @@
     <div class="col-6 mx-auto">
       <div class="card shadow border">
         <div class="card-body d-flex flex-column align-items-center">
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <h5>{{details.email}}</h5>
+          <table class="table">
+            <thead >
+              <tr>
+                <th class="text-center" colspan="3">Your Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Name</th>
+                <td >{{details.name}}</td>
+                <td ><button class="btn btn-dark">Edit</button></td>
+              </tr>
+              <tr>
+                <th scope="row">Email</th>
+                <td>{{details.email}}</td>
+                <td><button class="btn btn-dark">Edit</button></td>
+              </tr>
+              <tr>
+                <th scope="row">username</th>
+                <td>{{details.username}}</td>
+                <td><button class="btn btn-dark">Edit</button></td>
+              </tr>
+            </tbody>
+            <!-- <tfoot class="d-flex justify-content-center mt-2 w-100"> -->
+              
+            <!-- </tfoot> -->
+          </table>
+          <button class="btn btn-danger w-100">Delete Your Account</button>
         </div>
       </div>
     </div>
